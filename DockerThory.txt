@@ -1,0 +1,173 @@
+ssh -i yashkey.pem ubuntu@3.91.148.28
+ sudo -i
+ git clone https://github.com/yashrathod915/angular.git
+
+ls-to see the file inside directiorkeojto
+
+
+vi docker.sh
+
+
+the file contain
+
+------------------------------
+#!/bin/bash
+
+ 
+
+
+echo "############################## Installing Docker CE ######################                                                                             ##########"
+
+ 
+
+
+apt-get update
+
+ 
+
+
+apt-get install -y \
+
+ 
+
+
+apt-transport-https \
+
+ 
+
+
+ca-certificates \
+
+ 
+
+
+curl \
+
+ 
+
+
+software-properties-common
+
+ 
+
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+ 
+
+
+add-apt-repository \
+
+ 
+
+
+"deb https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+
+ 
+
+
+$(lsb_release -cs) \
+
+ 
+
+
+stable"
+
+ 
+
+
+apt-get update && apt-get install -y docker-ce=$(apt-cache madison docker-ce | g                                                                             rep 17.03 | head -1 | awk '{print $3}')
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+apt-get install -y docker
+
+
+-----
+enter esc
+:wq!
+
+****************
+
+cat docker.sh    ->to see content
+
+
+
+
+sh docker.sh     ->to run file
+
+
+
+cd angular/
+
+
+ vi Dockerfile
+
+-------------------------
+
+FROM node:12.0
+        
+
+ 
+
+        
+        
+        
+        
+        WORKDIR /usr/src/
+        
+        
+        
+        
+        RUN npm install -g @angular/cli@
+        
+        
+        
+        
+        COPY . /usr/src/
+
+ 
+
+               
+                RUN npm install
+        
+        
+       
+    
+​
+    
+
+
+        
+        CMD ng serve --host 0.0.0.0 --port 4200
+
+----------------------------------------------
+esc
+:wq!
+--------------
+
+
+
+ apt install docker.io 
+
+
+ docker build -t angular-app-image .
+
+
+docker ps
+
+docker images
+
+docker run -d -p 4200:4200 angular-app-image
+
+docker ps
+
+
+docker system prune -a
